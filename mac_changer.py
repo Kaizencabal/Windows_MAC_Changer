@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Debugged OOP Windows Wi‑Fi MAC changer with Matrix-style UI.
+Windows Wi‑Fi MAC changer with Matrix-style UI.
 
 Notes:
  - Requires Administrator.
