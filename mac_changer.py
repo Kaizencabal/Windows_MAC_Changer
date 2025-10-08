@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Windows Wi‑Fi MAC changer with Matrix-style UI.
+Debugged OOP Windows Wi‑Fi MAC changer with Matrix-style UI.
 
 Notes:
  - Requires Administrator.
@@ -160,11 +160,11 @@ class AdapterDiscovery:
             proc = run(["netsh", "wlan", "show", "interfaces"], stdout=PIPE, stderr=PIPE, text=True, check=True)
             name = guid = ""
             for line in proc.stdout.splitlines():
-                l = line.strip()
-                if l.lower().startswith("name"):
-                    name = l.split(":", 1)[1].strip().strip('"')
-                if l.lower().startswith("interface guid"):
-                    guid = l.split(":", 1)[1].strip().strip('"')
+                line_str = line.strip()
+                if line_str.lower().startswith("name"):
+                    name = line_str.split(":", 1)[1].strip().strip('"')
+                if line_str.lower().startswith("interface guid"):
+                    guid = line_str.split(":", 1)[1].strip().strip('"')
                 if name:
                     adapters.append((name, guid, "Native802_11"))
                     name = guid = ""
@@ -409,7 +409,9 @@ class MacChanger:
             if guid:
                 subkey = self.registry.find_subkey_for_guid(guid)
                 if subkey:
-                    print(f"{BRIGHT_GREEN}[*] Writing NetworkAddress={reg_value} to registry subkey {subkey} ...{RESET}")
+                    print(
+                        f"{BRIGHT_GREEN}[*] Writing NetworkAddress={reg_value} to registry subkey {subkey} ...{RESET}"
+                    )
                     if self.registry.set_network_address(subkey, reg_value):
                         if self.system_ops.toggle_interface(name):
                             applied = True
