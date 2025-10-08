@@ -447,7 +447,6 @@ class MacChanger:
             print(f"{BRIGHT_GREEN}Shutting down matrix...{RESET}")
             time.sleep(0.6)
 
-
     @staticmethod
     def _prompt_choice(options: List[str], prompt: str) -> int:
         for idx, opt in enumerate(options, start=1):
